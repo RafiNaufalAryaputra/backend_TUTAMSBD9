@@ -6,23 +6,20 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ Middleware
 app.use(cors({
   origin: [
-    "http://localhost:5173", // untuk development lokal
-    "https://frontend-tutamsbd-9.vercel.app/" // ganti dengan URL frontend kamu di Vercel
+    "http://localhost:5173",
+    "https://frontend-tutamsbd-9.vercel.app/"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 app.use(express.json());
 
-// ✅ MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB error:", err));
 
-// ✅ Schema & Model
 const TodoSchema = new mongoose.Schema({
   text: { type: String, required: true },
   day: { type: String, required: true },
@@ -30,9 +27,8 @@ const TodoSchema = new mongoose.Schema({
 });
 const Todo = mongoose.model("Todo", TodoSchema);
 
-// ✅ Routes
+// Routes
 
-// GET all todos
 app.get("/api/todos", async (req, res) => {
   try {
     const todos = await Todo.find();
@@ -83,7 +79,7 @@ app.put("/api/todos/:id", async (req, res) => {
   }
 });
 
-// ✅ Start server
+// Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on PORT ${PORT}`);
 });

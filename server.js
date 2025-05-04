@@ -7,9 +7,6 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: ["https://frontend-tutamsbd-9.vercel.app/"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
 }));
 
 app.use(express.json());
